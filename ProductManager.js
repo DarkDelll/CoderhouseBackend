@@ -3,15 +3,25 @@ const fs = require("fs");
 class ProductManager {
   constructor(filePath) {
     this.path = filePath;
+    this.newFile();
 
   }
-  async addProducts(title, description, price, thumbnail, code, stock) {
+  async newFile() {
     try {
       const filenameExist = fs.existsSync(this.path);
 
       if (!filenameExist) {
         await fs.promises.writeFile(this.path, "[]");
       }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+
+  async addProducts(title, description, price, thumbnail, code, stock) {
+    try {
+      
 
       if (
         title !== "" &&
