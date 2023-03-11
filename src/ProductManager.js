@@ -1,4 +1,4 @@
-const fs = require("fs");
+import fs from 'fs'
 
 class ProductManager {
   constructor(filePath) {
@@ -76,7 +76,7 @@ class ProductManager {
   async getProducts() {
     const filecontent = await fs.promises.readFile(this.path, "utf-8");
     const filecontentParsed = JSON.parse(filecontent);
-    return console.log(filecontentParsed);
+    return filecontentParsed;
   }
   async getProductById(id) {
     const filecontent = await fs.promises.readFile(this.path, "utf-8");
@@ -84,9 +84,7 @@ class ProductManager {
     if (filecontentParsed.filter((product) => product.id === id) == 0) {
       return "Error: product not found";
     } else {
-      return console.log(
-        filecontentParsed.filter((product) => product.id === id)
-      );
+      return filecontentParsed.filter((product) => product.id === id)
     }
   }
 
@@ -135,4 +133,4 @@ class ProductManager {
 
 }
 
-module.exports = ProductManager;
+export {ProductManager}
