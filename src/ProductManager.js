@@ -82,7 +82,7 @@ class ProductManager {
     const filecontent = await fs.promises.readFile(this.path, "utf-8");
     const filecontentParsed = JSON.parse(filecontent);
     if (filecontentParsed.filter((product) => product.id === id) == 0) {
-      return "Error: product not found";
+      return {Error: "Product not found"};
     } else {
       return filecontentParsed.filter((product) => product.id === id)
     }
