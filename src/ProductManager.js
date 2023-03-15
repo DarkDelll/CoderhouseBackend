@@ -59,15 +59,15 @@ class ProductManager {
               this.path,
               JSON.stringify(filecontentParsed, null, 2)
             );
-            console.log("Producto agregado correctamente");
+            return {Success:"Producto agregado correctamente Producto: " + Product.title + " id:" + Product.id};
           } else {
-            console.log("Error: el código ya existe");
+            return {Error: "el código ya existe"};
           }
         } else {
-          console.log("Error: el tipo de dato introducido no es correcto");
+          return {Error: "el tipo de dato introducido no es correcto"};
         }
       } else {
-        console.log("Error: hay un campo vacío");
+        return {Error: "hay un campo vacío"};
       }
     } catch (error) {
       console.log(error);
@@ -92,10 +92,10 @@ class ProductManager {
     const filecontent = await fs.promises.readFile(this.path, "utf-8");
     const filecontentParsed = JSON.parse(filecontent);
     if (filecontentParsed.filter((product) => product.id === id) == 0) {
-      return console.log("Error: product not found");
+      return {Error: "product not found"};
     } else {
       if (updateCampo == "id") {
-        return console.log("El id no se puede modificar");
+        return {Error: "El id no se puede modificar"};
       } else {
         filecontentParsed.map((product) => {
           if (product.id == id) {
@@ -116,7 +116,7 @@ class ProductManager {
     const filecontent = await fs.promises.readFile(this.path, "utf-8");
     const filecontentParsed = JSON.parse(filecontent);
     if (filecontentParsed.filter((product) => product.id === id) == 0) {
-      return console.log("Error: product not found");
+      return {Error: "Product not found"};
     } else {
       const filecontentfiltered = filecontentParsed.filter(
         (product) => product.id !== id
@@ -125,7 +125,7 @@ class ProductManager {
         this.path,
         JSON.stringify(filecontentfiltered, null, 2)
       );
-      return console.log("Producto eliminado");
+      return {Success: "Producto eliminado"};
     }
   }
 
