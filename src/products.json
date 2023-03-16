@@ -106,5 +106,14 @@
     "thumbnail": "google.com",
     "code": "rec123",
     "stock": 10
+  },
+  {
+    "id": 1678999283366,
+    "title": "Kem Piña",
+    "description": "Gaseosa sabor piña",
+    "price": 1000,
+    "thumbnail": "google.com",
+    "code": "kem123",
+    "stock": 12
   }
 ]

@@ -18,7 +18,6 @@ class ProductManager {
     }
   }
 
-
   async addProducts(title, description, price, thumbnail, code, stock) {
     try {
       
