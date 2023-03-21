@@ -2,118 +2,155 @@
   {
     "id": 1678224994148,
     "title": "Pepsi",
-    "description": "Bebida gaseosa",
+    "description": "Bebida gaseosa sabor cola",
+    "code": "PS-01",
     "price": 1000,
-    "thumbnail": "https://www.coca-cola.es/content/dam/journey/es/es/private/2020/01/20/20/01/20200120-coca-cola-0-33l-1.jpg",
-    "code": "4323",
-    "stock": 10
+    "status": true,
+    "stock": 10,
+    "category": "Gaseosas",
+    "thumbnail": ""
   },
   {
     "id": 1678225192726,
-    "title": "Coca Cola",
+    "title": "Coca Cola Vainilla",
     "description": "Bebida gaseosa",
-    "price": 100,
-    "thumbnail": "https://www.coca-cola.com.ar/content/dam/journey/ar/es/private/brands/coca-cola/coca-cola-bottle.png",
-    "code": "123456789",
-    "stock": 10
+    "code": "Coke23-VN",
+    "price": 1000,
+    "status": true,
+    "stock": 10,
+    "category": "Gaseosas",
+    "thumbnail": ""
   },
   {
     "id": 1678546004622,
     "title": "Sprite",
-    "description": "Gaseosa",
-    "price": 100,
-    "thumbnail": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.abc.com.py%2Fnoticias%2Fsprite-ya-no-tendra-azucar-en-p)",
-    "code": "SPR-001",
-    "stock": 10
+    "description": "Gaseosa sabor lima limon",
+    "code": "SP-12",
+    "price": 1000,
+    "status": true,
+    "stock": 10,
+    "category": "Gaseosas",
+    "thumbnail": ""
   },
   {
     "id": 1678546055858,
     "title": "Fanta",
-    "description": "Bebida",
-    "price": 100,
-    "thumbnail": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fww",
-    "code": "FAN-24",
-    "stock": 10
+    "description": "Bebida sabor naranja",
+    "code": "FAN-20",
+    "price": 1000,
+    "status": true,
+    "stock": 10,
+    "category": "Gaseosas",
+    "thumbnail": ""
   },
   {
     "id": 1678546136014,
     "title": "Zup",
-    "description": "Gaseosa",
-    "price": 100,
-    "thumbnail": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.eldiario.es%2Fzona%2Fgaseosa)",
-    "code": "ZUP-10",
-    "stock": 10
+    "description": "Gaseosa sabor lima limon",
+    "code": "ZP-01",
+    "price": 1000,
+    "status": true,
+    "stock": 10,
+    "category": "Gaseosas",
+    "thumbnail": ""
   },
   {
     "id": 1678546202369,
     "title": "Cerveza",
     "description": "Cerveza artesanal",
-    "price": 100,
-    "thumbnail": "https://www.google.com",
-    "code": "crz-10",
-    "stock": 10
+    "code": "CZ-03",
+    "price": 1000,
+    "status": true,
+    "stock": 10,
+    "category": "Cervezas",
+    "thumbnail": ""
   },
   {
     "id": 1678546243006,
-    "title": "Inca Kola",
-    "description": "Bebida de origen peruano",
-    "price": 100,
-    "thumbnail": "https://www.inca-kola.com.pe/wp-content/uploads/2019/10/Inca-Kola-1.png",
-    "code": "INC-123456",
-    "stock": 10
+    "title": "Inca Kola Frutilla",
+    "description": "Bebida de origen peruano sabor frutilla",
+    "code": "IK-12",
+    "price": 1000,
+    "status": true,
+    "stock": 10,
+    "category": "Gaseosas",
+    "thumbnail": ""
   },
   {
     "id": 1678546280494,
     "title": "Guarana",
     "description": "Bebida",
-    "price": 100,
-    "thumbnail": "https://cdn.shopify.com/s/files/1/0513/3821/5592/products/GUARANA_500x500.jpg?v=1635596626",
-    "code": "Guar-123",
-    "stock": 10
+    "code": "GR-10",
+    "price": 1000,
+    "status": true,
+    "stock": 10,
+    "category": "Gaseosas",
+    "thumbnail": ""
   },
   {
     "id": 1678546386139,
     "title": "Agua tonica",
     "description": "Agua con gas",
-    "price": 100,
-    "thumbnail": "https://www.lakoka.cl/1141-home_default/agua-tonica-sin-azucar-schweppes-lata-350ml-x6-uds-nordic.jpg",
-    "code": "AG-80",
-    "stock": 10
+    "code": "AG-21",
+    "price": 1000,
+    "status": true,
+    "stock": 10,
+    "category": "Aguas",
+    "thumbnail": ""
   },
   {
     "id": 1678546435746,
     "title": "Agua con gas",
     "description": "Agua con gas",
-    "price": 10,
-    "thumbnail": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.istockphoto.com%2Fes%2Ffoto%2Fagua-con-gas-gm)",
-    "code": "AGUA-10",
-    "stock": 10
+    "code": "AG-20",
+    "price": 1000,
+    "status": true,
+    "stock": 10,
+    "category": "Aguas",
+    "thumbnail": ""
   },
   {
     "id": 1678857915325,
-    "title": "Orange Crush",
-    "description": "Gaseosa naranja",
+    "title": "Coca cola",
+    "description": "gaseosa clasica",
+    "code": "Coke23",
     "price": 1000,
-    "thumbnail": "google.com",
-    "code": "asdasd12",
-    "stock": 10
+    "status": true,
+    "stock": 10,
+    "category": "Gaseosas",
+    "thumbnail": ""
   },
   {
     "id": 1678858350532,
-    "title": "Fanta uva",
-    "description": "Gaseosa naranja",
+    "title": "Fanta Uva",
+    "description": "fanta sabor uva",
+    "code": "FAN-23",
     "price": 1000,
-    "thumbnail": "google.com",
-    "code": "rec123",
-    "stock": 10
+    "status": true,
+    "stock": 10,
+    "category": "Gaseosas",
+    "thumbnail": ""
   },
   {
-    "id": 1678999283366,
+    "id": 1679360570855,
     "title": "Kem Piña",
-    "description": "Gaseosa sabor piña",
+    "description": "gaseosa sabor piña",
+    "code": "afda23",
     "price": 1000,
-    "thumbnail": "google.com",
-    "code": "kem123",
-    "stock": 12
+    "status": true,
+    "stock": 10,
+    "category": "Gaseosas",
+    "thumbnail": ""
+  },
+  {
+    "id": 1679368409299,
+    "title": "Inca cola",
+    "description": "gaseosa peruana",
+    "code": "asdawg132",
+    "price": 1000,
+    "status": true,
+    "stock": 10,
+    "category": "Gaseosas",
+    "thumbnail": ""
   }
 ]

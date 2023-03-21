@@ -1,4 +1,5 @@
 import fs from "fs";
+import { Manager1 } from "../../index.js";
 
 class CartManager {
   constructor(path) {
@@ -19,7 +20,7 @@ class CartManager {
     const filecontent = await fs.promises.readFile(this.path, "utf-8");
     const filecontentParsed = JSON.parse(filecontent);
     if (filecontentParsed.filter((cart) => cart.id === id) == 0) {
-      return { Error: "Product not found" };
+      return { Error: "Cart not found" };
     } else {
       return filecontentParsed.filter((cart) => cart.id === id);
     }
@@ -27,7 +28,7 @@ class CartManager {
   async newCart() {
     const Cart = {
       id: Date.now(),
-      products: "[]",
+      products: [],
     };
     const filecontent = await fs.promises.readFile(this.path, "utf-8");
     const filecontentParsed = JSON.parse(filecontent);
@@ -42,33 +43,50 @@ class CartManager {
   async addProducts(cartid, productid) {
     const filecontent = await fs.promises.readFile(this.path, "utf-8");
     const filecontentParsed = JSON.parse(filecontent);
+    const carritoactual = filecontentParsed.filter(
+      (cart) => cart.id === cartid
+    );
+    
 
-    if(filecontentParsed.filter((cart)=> cart.id === cartid) == 0 ){
-        return {Error: "El carrito id: "+ cartid + " no existe"}
+    if (carritoactual == 0) {
+      return { Error: "El carrito id: " + cartid + " no existe" };
     }
-    if (filecontentParsed.filter((cart)=> cart.products.filter((product)=> product.id === productid) == 0)){
-        const product = {
-            id: productid,
-            cantidad: 1
+
+    if (!(await Manager1.productExist(productid))) {
+      return { Error: "Product not found" };
+    }
+
+    if (
+      carritoactual.map((carrito) =>
+        carrito.products.filter((cartproduct) => cartproduct.id == productid)
+      ) == 0
+    ) {
+      const product = {
+        id: productid,
+        quantity: 1,
+      };
+      carritoactual.map((carrito) => carrito.products.push(product));
+      await fs.promises.writeFile(
+        this.path,
+        JSON.stringify(filecontentParsed, null, 2)
+      );
+      return { Success: "Producto agregado correctamente" };
+    } else {
+      filecontentParsed.map((carrito) => {
+        if (carrito.id == cartid) {
+          carrito.products.map((producto) => {
+            if (producto.id == productid) {
+              producto.quantity += 1;
+            }
+          });
         }
-        filecontentParsed.filter((cart)=> cart.id === cartid).products.push(product)
-        await fs.promises.writeFile(
-            this.path,
-            JSON.stringify(filecontentParsed, null, 2)
-            );
-        return {Success: "Producto agregado correctamente"}
+      });
+      await fs.promises.writeFile(
+        this.path,
+        JSON.stringify(filecontentParsed, null, 2)
+      );
+      return { Success: "Cantidad agregada correctamente" };
     }
-    else{
-        filecontentParsed.filter((cart)=> cart.id === cartid).products.cantidad += 1
-        await fs.promises.writeFile(
-            this.path,
-            JSON.stringify(filecontentParsed, null, 2)
-            );
-        return {Success: "Cantidad agregada correctamente"}
-    }
-
-
-
   }
 }
 

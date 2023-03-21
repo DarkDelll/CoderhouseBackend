@@ -18,7 +18,7 @@ class ProductManager {
     }
   }
 
-  async addProducts(title, description, price, thumbnail, code, stock) {
+  async addProducts(title, description, code, price, stock, category, thumbnail) {
     try {
       
 
@@ -26,9 +26,9 @@ class ProductManager {
         title !== "" &&
         description !== "" &&
         price !== "" &&
-        thumbnail !== "" &&
         code !== "" &&
-        stock !== ""
+        stock !== "" &&
+        category !== ""
       ) {
         if (
           typeof title === "string" &&
@@ -36,16 +36,19 @@ class ProductManager {
           typeof price === "number" &&
           typeof thumbnail === "string" &&
           typeof code === "string" &&
-          typeof stock === "number"
+          typeof stock === "number" &&
+          typeof category === "string"
         ) {
           const Product = {
             id: Date.now(),
             title: title,
             description: description,
-            price: price,
-            thumbnail: thumbnail,
             code: code,
+            price: price,
+            status: true,
             stock: stock,
+            category: category,
+            thumbnail: thumbnail,
           };
           const filecontent = await fs.promises.readFile(this.path, "utf-8");
           const filecontentParsed = JSON.parse(filecontent);
@@ -105,9 +108,7 @@ class ProductManager {
           this.path,
           JSON.stringify(filecontentParsed, null, 2)
         );
-        return console.log(
-          filecontentParsed.filter((product) => product.id === id)
-        );
+        return {Success: "El campo: " + updateCampo + " ha sido actualizado"}
       }
     }
   }
@@ -126,6 +127,13 @@ class ProductManager {
       );
       return {Success: "Producto eliminado"};
     }
+  }
+  async productExist(id){
+    const filecontent = await fs.promises.readFile(this.path, "utf-8");
+    const filecontentParsed = JSON.parse(filecontent);
+    if (filecontentParsed.filter((product) => product.id === id) == 0) {
+      return false;
+    } else {return true}
   }
 
 
