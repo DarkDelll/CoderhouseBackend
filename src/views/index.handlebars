@@ -1,0 +1,12 @@
+<div>
+    <h2>Lista de Productos</h2>
+    {{#each products}}
+        <div>
+            <hr size="2px" color="black" />
+            <p>Id: {{this.id}} </p>
+            <p>Nombre: {{this.title}}</p>
+            <p>Precio: {{this.price}} </p> 
+        </div>
+
+    {{/each}}
+</div>
