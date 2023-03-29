@@ -34,7 +34,6 @@ class ProductManager {
           typeof title === "string" &&
           typeof description === "string" &&
           typeof price === "number" &&
-          typeof thumbnail === "string" &&
           typeof code === "string" &&
           typeof stock === "number" &&
           typeof category === "string"

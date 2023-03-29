@@ -1,6 +1,25 @@
 <div>
     <p id="datos"></p>
 </div>
+<div>
+    <h2>Ingresar Nuevo Producto</h2>
+    <form action="" class="formulario" id="formulario-ingreso" >
+        <input type="text" id="title" placeholder="Titulo" style="font-size: 20px;"><br>
+        <input type="text" id="description" placeholder="Descripcion" style="font-size: 20px;"><br>
+        <input type="text" id="code" placeholder="Codigo" style="font-size: 20px;"><br>
+        <input type="number" id="price" placeholder="Precio" style="font-size: 20px;"><br>
+        <input type="number" id="stock" placeholder="Stock" style="font-size: 20px;"><br>
+        <input type="text" id="category" placeholder="Categoria" style="font-size: 20px;"><br>
+        <input type="submit" id="enviar">  
+    </form>
+</div>
+<div>
+    <h2>Eliminar producto</h2>
+    <form action="" id="eliminar">
+        <input type="text" id="id" placeholder="Ingresar ID">
+        <input type="submit">
+    </form>
+</div>
 
 <script src="/socket.io/socket.io.js"></script>
 <script src="/js/realtimeproducts.js"></script>
