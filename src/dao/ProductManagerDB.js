@@ -1,0 +1,30 @@
+import productsModel from "./models/products.js";
+
+class ProductManager {
+    constructor(){
+        console.log('Productos con persistencia de datos en mongoDB')
+    }
+    
+    async getProducts(){
+        let products = await productsModel.find()
+        return products.map(product=>product.toObject())
+    }
+    async getProductById(pid){
+        let product = await productsModel.findById(pid)
+        return product
+    }
+    async addProducts(product){
+        let result = productsModel.create(product)
+        return result
+    }
+    async updateProduct(){
+
+    }
+    async deleteProduct(pid){
+        let result = productsModel.deleteOne({_id: pid})
+        return result
+    }
+
+}
+
+export default ProductManager

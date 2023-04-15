@@ -1,10 +1,11 @@
 import express from 'express'
-import { Manager1 } from "../../index.js";
+import ProductManager from '../dao/ProductManager.js'
 
 const router = express.Router()
+const productService = new ProductManager()
 
 router.get('/', async (req, res)=>{
-    const products = await Manager1.getProducts();
+    const products = await productService.getProducts();
     res.render('index', {products})
 })
 

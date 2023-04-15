@@ -1,10 +1,12 @@
 import { Router } from "express";
-import { Manager1 } from "../../index.js";
+//import ProductManager from "../dao/ProductManager.js";
+import ProductManager from "../dao/ProductManagerDB.js";
 
 const router = Router();
+const productService = new ProductManager();
 
 router.get("/", async (req, res) => {
-    const respuesta = await Manager1.getProducts();
+    const respuesta = await productService.getProducts();
     const limite = req.query.limit;
     if (limite == undefined) {
       res.send(respuesta);
@@ -15,14 +17,14 @@ router.get("/", async (req, res) => {
   
   router.get("/:pid", async (req,res)=>{
       let id = req.params.pid
-      const respuesta = await Manager1.getProductById(parseInt(id))
+      const respuesta = await productService.getProductById(id)
       res.send(respuesta)
   })
     
 
   router.post("/", async (req, res) => {
     const { title, description,  code, price, stock, category, thumbnail } = req.body;
-    const respuesta = await Manager1.addProducts(title, description,  code, price, stock, category, thumbnail);
+    const respuesta = await productService.addProducts({title, description,  code, price, stock, category, thumbnail});
     res.send(respuesta);
     });
 
@@ -30,13 +32,13 @@ router.get("/", async (req, res) => {
     let id = req.params.pid
     const { campo, valor } = req.body
     console.log(req.body)
-    const respuesta = await Manager1.updateProduct(parseInt(id), campo, valor)
+    const respuesta = await productService.updateProduct(parseInt(id), campo, valor)
     res.send(respuesta)
   })
 
   router.delete("/:pid", async (req,res)=>{
     let id = req.params.pid
-    const respuesta = await Manager1.deleteProduct(parseInt(id))
+    const respuesta = await productService.deleteProduct(parseInt(id))
     res.send(respuesta)
   })
 

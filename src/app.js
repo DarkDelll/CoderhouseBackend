@@ -5,7 +5,8 @@ import handlebars from "express-handlebars";
 import __dirname from "./Utils.js";
 import viewRouter from "./routes/views-routes.js";
 import { Server } from "socket.io";
-import { Manager1 } from "../index.js";
+import ProductManager from "./dao/ProductManager.js";
+import mongoose from "mongoose";
 
 const app = express();
 const PORT = 8080;
@@ -28,15 +29,15 @@ const httpServer = app.listen(PORT, () => {
 });
 
 const socketServer = new Server(httpServer);
-
+const productService = new ProductManager();
 socketServer.on("connection", async (socket) => {
-  socket.emit("products", await Manager1.getProducts());
+  socket.emit("products", await productService.getProducts());
 
   socket.on("new-product", async (data) => {
     const { title, description, code, price, stock, category, thumbnail } =
       data;
     console.log(
-      await Manager1.addProducts(
+      await productService.addProducts(
         title,
         description,
         code,
@@ -48,6 +49,18 @@ socketServer.on("connection", async (socket) => {
     );
   });
   socket.on("delete-product", async (id) => {
-    console.log(await Manager1.deleteProduct(+id));
+    console.log(await productService.deleteProduct(+id));
   });
 });
+
+const connectMongoDB = async ()=>{
+  try {
+    await mongoose.connect('mongodb://localhost:27017/ecommerce?retryWrites=true&w=majority')
+    console.log("Conectado con exito a MongoDB usando Moongose.");
+  }
+  catch(error) {
+    console.error("No se puedo conectar a la base de datos " + error)
+    process.exit()
+  }
+}
+connectMongoDB()
