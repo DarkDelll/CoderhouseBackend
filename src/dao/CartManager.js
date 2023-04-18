@@ -21,10 +21,10 @@ class CartManager {
   async getCart(id) {
     const filecontent = await fs.promises.readFile(this.path, "utf-8");
     const filecontentParsed = JSON.parse(filecontent);
-    if (filecontentParsed.filter((cart) => cart.id === id) == 0) {
+    if (filecontentParsed.filter((cart) => cart.id === parseInt(id)) == 0) {
       return { Error: "Cart not found" };
     } else {
-      return filecontentParsed.filter((cart) => cart.id === id);
+      return filecontentParsed.filter((cart) => cart.id === parseInt(id));
     }
   }
   async newCart() {
@@ -46,7 +46,7 @@ class CartManager {
     const filecontent = await fs.promises.readFile(this.path, "utf-8");
     const filecontentParsed = JSON.parse(filecontent);
     const carritoactual = filecontentParsed.filter(
-      (cart) => cart.id === cartid
+      (cart) => cart.id === parseInt(cartid)
     );
     
 
@@ -54,17 +54,17 @@ class CartManager {
       return { Error: "El carrito id: " + cartid + " no existe" };
     }
 
-    if (!(await productService.productExist(productid))) {
+    if (!(await productService.productExist(parseInt(productid)))) {
       return { Error: "Product not found" };
     }
 
     if (
       carritoactual.map((carrito) =>
-        carrito.products.filter((cartproduct) => cartproduct.id == productid)
+        carrito.products.filter((cartproduct) => cartproduct.id == parseInt(productid))
       ) == 0
     ) {
       const product = {
-        id: productid,
+        id: parseInt(productid),
         quantity: 1,
       };
       carritoactual.map((carrito) => carrito.products.push(product));
@@ -75,9 +75,9 @@ class CartManager {
       return { Success: "Producto agregado correctamente" };
     } else {
       filecontentParsed.map((carrito) => {
-        if (carrito.id == cartid) {
+        if (carrito.id == parseInt(cartid)) {
           carrito.products.map((producto) => {
-            if (producto.id == productid) {
+            if (producto.id == parseInt(productid)) {
               producto.quantity += 1;
             }
           });

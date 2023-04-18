@@ -5,8 +5,10 @@ import handlebars from "express-handlebars";
 import __dirname from "./Utils.js";
 import viewRouter from "./routes/views-routes.js";
 import { Server } from "socket.io";
-import ProductManager from "./dao/ProductManager.js";
+//import ProductManager from "./dao/ProductManager.js";
 import mongoose from "mongoose";
+import ProductManager from "./dao/ProductManagerDB.js";
+import MessagesManager from "./dao/MessagesManagerDB.js";
 
 const app = express();
 const PORT = 8080;
@@ -30,27 +32,26 @@ const httpServer = app.listen(PORT, () => {
 
 const socketServer = new Server(httpServer);
 const productService = new ProductManager();
+let messages = []
 socketServer.on("connection", async (socket) => {
   socket.emit("products", await productService.getProducts());
 
   socket.on("new-product", async (data) => {
-    const { title, description, code, price, stock, category, thumbnail } =
-      data;
     console.log(
-      await productService.addProducts(
-        title,
-        description,
-        code,
-        +price,
-        +stock,
-        category,
-        thumbnail
-      )
+      await productService.addProducts(data)
     );
   });
   socket.on("delete-product", async (id) => {
     console.log(await productService.deleteProduct(+id));
   });
+
+  socket.on('message', async data =>{
+    const messagesService = new MessagesManager()
+    await messagesService.createMessage(data)
+    let msg = await messagesService.AllMessages()
+    messages.push(msg);
+    socketServer.emit('messageLogs', messages )
+})
 });
 
 const connectMongoDB = async ()=>{

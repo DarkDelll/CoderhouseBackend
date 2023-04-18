@@ -83,24 +83,24 @@ class ProductManager {
   async getProductById(id) {
     const filecontent = await fs.promises.readFile(this.path, "utf-8");
     const filecontentParsed = JSON.parse(filecontent);
-    if (filecontentParsed.filter((product) => product.id === id) == 0) {
+    if (filecontentParsed.filter((product) => product.id === parseInt(id)) == 0) {
       return {Error: "Product not found"};
     } else {
-      return filecontentParsed.filter((product) => product.id === id)
+      return filecontentParsed.filter((product) => product.id === parseInt(id))
     }
   }
 
   async updateProduct(id, updateCampo, updateValor) {
     const filecontent = await fs.promises.readFile(this.path, "utf-8");
     const filecontentParsed = JSON.parse(filecontent);
-    if (filecontentParsed.filter((product) => product.id === id) == 0) {
+    if (filecontentParsed.filter((product) => product.id === parseInt(id)) == 0) {
       return {Error: "product not found"};
     } else {
       if (updateCampo == "id") {
         return {Error: "El id no se puede modificar"};
       } else {
         filecontentParsed.map((product) => {
-          if (product.id == id) {
+          if (product.id == parseInt(id)) {
             product[updateCampo] = updateValor;
           }
         });
@@ -115,11 +115,11 @@ class ProductManager {
   async deleteProduct(id) {
     const filecontent = await fs.promises.readFile(this.path, "utf-8");
     const filecontentParsed = JSON.parse(filecontent);
-    if (filecontentParsed.filter((product) => product.id === id) == 0) {
+    if (filecontentParsed.filter((product) => product.id === parseInt(id)) == 0) {
       return {Error: "Product not found"};
     } else {
       const filecontentfiltered = filecontentParsed.filter(
-        (product) => product.id !== id
+        (product) => product.id !== parseInt(id)
       );
       await fs.promises.writeFile(
         this.path,
@@ -131,7 +131,7 @@ class ProductManager {
   async productExist(id){
     const filecontent = await fs.promises.readFile(this.path, "utf-8");
     const filecontentParsed = JSON.parse(filecontent);
-    if (filecontentParsed.filter((product) => product.id === id) == 0) {
+    if (filecontentParsed.filter((product) => product.id === parseInt(id)) == 0) {
       return false;
     } else {return true}
   }
