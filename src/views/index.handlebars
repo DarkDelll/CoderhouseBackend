@@ -1,12 +1,25 @@
 <div>
     <h2>Lista de Productos</h2>
-    {{#each products}}
+    {{#each docs}}
         <div>
             <hr size="2px" color="black" />
-            <p>Id: {{this.id}} </p>
+            <p>Id: {{this._id}} </p>
             <p>Nombre: {{this.title}}</p>
-            <p>Precio: {{this.price}} </p> 
+            <p>Precio: {{this.price}} </p>
+            <form action="http://localhost:8080/api/carts/644856f9e30a2ac0adb5da26/product/{{this._id}}" method="POST">
+                <button type="submit">añadir producto</button>
+            </form> 
         </div>
-
     {{/each}}
+</div>
+<div>
+    {{#if hasPrevPage}}
+        <a href={{this.prevLink}}><< Anterior</a>
+    {{/if}}
+    &nbsp;
+    {{this.page}}
+    &nbsp;
+     {{#if hasNextPage}}
+        <a href={{this.nextLink}}>Siguiente >></a>
+    {{/if}} 
 </div>
