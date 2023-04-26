@@ -8,10 +8,12 @@ const productService = new ProductManager();
 
 router.get("/", async (req, res) => {
     // const respuesta = await productService.getProducts();
-    const limite = parseInt(req.query.limit) || 10;
-    const page = parseInt(req.query.page) || 1;
-    const sort = req.query.sort
-    let result = await productsModel.paginate({},{page,limit:limite,lean:true})
+    const limite = req.query.limit || 10;
+    const page = req.query.page || 1;
+    let sort = req.query.sort ? {price:req.query.sort} : {}
+    let query = req.query.query ? JSON.parse(req.query.query) : {}
+    
+    let result = await productsModel.paginate(query,{page:page,limit:limite,lean:true, sort:sort})
     result.prevLink = result.hasPrevPage?`http://localhost:8080/api/products/${req.query.limit? `?limit=${limite}`:''}?page=${result.prevPage}`:null;
     result.nextLink = result.hasNextPage?`http://localhost:8080/api/products/${req.query.limit? `?limit=${limite}`:''}?page=${result.nextPage}`:null;
     result.isValid= !(page<=0||page>result.totalPages)
