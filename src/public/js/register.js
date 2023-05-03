@@ -14,5 +14,26 @@ form.addEventListener('submit',e=>{
         headers:{
             'Content-Type':'application/json'
         }
-    }).then(result=>result.json()).then(json=>console.log(json));
+    }).then(result=>{
+        result.json()
+        if(result.status===201){
+            Swal.fire(
+                'Registro Exitoso',
+                'Usuario Registrado Correctamente',
+                'success'
+            ).then((resultado) => {
+                if (resultado.isConfirmed) {
+                    window.location.replace('/login');
+                }
+              })    
+        }
+        if(result.status===400){
+            Swal.fire(
+                'Error',
+                'Usuario ya existe',
+                'error'
+            )
+        }
+   
+    }).then(json=>console.log(json));
 })

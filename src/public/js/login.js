@@ -17,5 +17,12 @@ form.addEventListener('submit',e=>{
             console.log(obj)
             window.location.replace('/products');
         }
+        if(result.status===401){
+            Swal.fire(
+                'Error',
+                'Las credenciales son incorrectas',
+                'error'
+            )
+        }
     })
 })
