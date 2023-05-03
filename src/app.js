@@ -1,4 +1,4 @@
-import express from "express";
+import express, { application } from "express";
 import RouterProduct from "./routes/product-routes.js";
 import RouterCart from "./routes/cart-routes.js";
 import handlebars from "express-handlebars";
@@ -9,6 +9,9 @@ import { Server } from "socket.io";
 import mongoose from "mongoose";
 import ProductManager from "./dao/ProductManagerDB.js";
 import MessagesManager from "./dao/MessagesManagerDB.js";
+import sessionRouter from "./routes/sessions-routes.js";
+import session from 'express-session';
+import MongoStore from 'connect-mongo';
 
 const app = express();
 const PORT = 8080;
@@ -22,9 +25,25 @@ app.set("view engine", "handlebars");
 
 app.use(express.static(__dirname + "/public/"));
 
+const MONGO_URL = "mongodb://localhost:27017/ecommerce?retryWrites=true&w=majority"
+app.use(session({
+  store:MongoStore.create({
+    mongoUrl:MONGO_URL,
+    mongoOptions: {useNewUrlParser: true, useUnifiedTopology: true},
+    ttl: 40
+  }),
+  secret:"CoderS3cret",
+  resave: false,
+  saveUninitialized: true
+
+}))
+
 app.use("/", viewRouter);
 app.use("/api/products", RouterProduct);
 app.use("/api/carts", RouterCart);
+app.use("/api/sessions", sessionRouter)
+
+
 
 const httpServer = app.listen(PORT, () => {
   console.log(`Running on port ${PORT}`);
@@ -56,7 +75,7 @@ socketServer.on("connection", async (socket) => {
 
 const connectMongoDB = async ()=>{
   try {
-    await mongoose.connect('mongodb://localhost:27017/ecommerce?retryWrites=true&w=majority')
+    await mongoose.connect(MONGO_URL)
     console.log("Conectado con exito a MongoDB usando Moongose.");
   }
   catch(error) {

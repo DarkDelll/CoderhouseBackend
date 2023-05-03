@@ -1,6 +1,10 @@
 <div>
     <h2>Lista de Productos</h2>
-    {{#each docs}}
+    <h4>Bienvenido {{rol.rol}}</h4>
+    <span>{{user.name}}</span>
+    <span>{{user.email}}</span>
+    <a href="/logout">cerrar sesión</a>
+    {{#each resultado.docs}}
         <div>
             <hr size="2px" color="black" />
             <p>Id: {{this._id}} </p>
@@ -13,13 +17,13 @@
     {{/each}}
 </div>
 <div>
-    {{#if hasPrevPage}}
-        <a href={{this.prevLink}}><< Anterior</a>
+    {{#if resultado.hasPrevPage}}
+        <a href={{resultado.prevLink}}> Anterior</a>
     {{/if}}
     &nbsp;
-    {{this.page}}
+    {{resultado.page}}
     &nbsp;
-     {{#if hasNextPage}}
-        <a href={{this.nextLink}}>Siguiente >></a>
+     {{#if resultado.hasNextPage}}
+        <a href={{resultado.nextLink}}>Siguiente </a>
     {{/if}} 
 </div>
