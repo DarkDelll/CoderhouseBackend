@@ -13,7 +13,9 @@ router.get('/products', async (req, res)=>{
     result.isValid= !(page<=0||page>result.totalPages)
     res.render('index', {resultado: result, user: req.session.user, rol: req.session.rol})
 })
-
+router.get('/', (req, res)=>{
+    res.redirect("/login");
+})
 
 router.get("/realtimeproducts", (req, res)=>{
     res.render("realTimeProducts",{});
