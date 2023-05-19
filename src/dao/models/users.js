@@ -9,7 +9,16 @@ const schema = mongoose.Schema({
         unique:true
     },
     age: Number,
-    password:String
+    password:String,
+    carts: {
+        type: mongoose.Schema.Types.ObjectId,
+                ref:"carts"
+    
+    },
+    role: {type:String, default:"user"}
+})
+schema.pre('findOne',function(){
+    this.populate("carts")
 })
 const userModel = mongoose.model(collection,schema);
 export default userModel;
