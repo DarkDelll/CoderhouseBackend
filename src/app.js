@@ -5,7 +5,7 @@ import handlebars from "express-handlebars";
 import __dirname from "./Utils.js";
 import viewRouter from "./routes/views-routes.js";
 import { Server } from "socket.io";
-//import ProductManager from "./dao/ProductManager.js";
+import config from "./config/config.js";
 import mongoose from "mongoose";
 import ProductManager from "./services/dao/Mongo/ProductManagerDB.js";
 import MessagesManager from "./services/dao/Mongo/MessagesManagerDB.js";
@@ -18,7 +18,7 @@ import initializePassport from "./config/passport.config.js";
 
 
 const app = express();
-const PORT = 8080;
+const PORT = config.port;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -29,7 +29,7 @@ app.set("view engine", "handlebars");
 
 app.use(express.static(__dirname + "/public/"));
 
-const MONGO_URL = "mongodb://localhost:27017/ecommerce?retryWrites=true&w=majority"
+const MONGO_URL = config.mongoURL
 app.use(session({
   store:MongoStore.create({
     mongoUrl:MONGO_URL,
