@@ -1,6 +1,6 @@
 import express from 'express'
-import productsModel from '../dao/models/products.js'
-import cartsModel from '../dao/models/carts.js'
+import productsModel from '../services/dao/Mongo/models/products.js'
+import cartsModel from '../services/dao/Mongo/models/carts.js'
 
 const router = express.Router()
 
