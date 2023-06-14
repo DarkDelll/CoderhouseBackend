@@ -21,25 +21,18 @@ export const generateJWToken = (user)=>{
     return jwt.sign({user}, PRIVATE_KEY, {expiresIn: '24h'});
 }
 
-
-export const authToken = (req, res, next) => {
-  
-    const authHeader = req.headers.authorization;
-    console.log("Token present in header auth:");
-    console.log(authHeader);
-
-    if(!authHeader){
-        return res.status(401).send({error: "User not authenticated or missing token."});
+export function authUser(req,res,next){
+    if(req.session.user.role === 'user'){
+        return next();
     }
-
-    const token = authHeader.split(' ')[1]; 
-    
-    jwt.verify(token, PRIVATE_KEY, (error, credentials)=>{
-        if (error) return res.status(403).send({error: "Token invalid, Unauthorized!"});
-        req.user = credentials.user;
-        console.log(req.user);
-        next();
-    })
+    return res.status(403).send('Usuario no autorizado para visualizar el contenido')
 }
+export function authAdmin(req,res,next){
+    if(req.session.user.role === 'admin'){
+        return next();
+    }
+    return res.status(403).send('Usuario no autorizado para visualizar el contenido')
+}
+
 
 export default __dirname;

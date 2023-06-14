@@ -1,11 +1,16 @@
 <div>
     <h2>Carrito de compras</h2>
+    <a href="/products/">Volver al inicio</a>
     {{#each products}}
         <div class="product">
             <hr size="2px" color="black" />
             <p>Nombre: {{product.title}}</p>
             <p>Precio: {{product.price}} </p>
             <p>Codigo: {{product.code}}</p>
+            <p>Cantidad: {{this.quantity}}</p>
         </div>
     {{/each}}
+    <form action="http://localhost:8080/api/carts/{{user.cart}}/purchase" method="POST">
+    <button type="submit">Finalizar Compra</button>
+    </form>
 </div>

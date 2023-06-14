@@ -21,15 +21,27 @@ class CartManager{
         )
         let indice = cart.products.findIndex((p)=>p.product._id == pid)
         let objeto = cart.products[indice]
+        
 
         if(indice>=0){
-            objeto.quantity++
-            cart.products[indice] = objeto
-            let res = await cartsModel.updateOne(cart)
+            let qty = objeto.quantity
+            let result = await cartsModel.findOneAndUpdate(
+                {"products._id" : objeto._id },
+                {$set: {'products.$.quantity': qty+=1}},
+                {new:true}
+            )
             return {success: "añadido correctamente"}
         }else{
-            cart.products.push({product: pid})
-            let result = await cartsModel.updateOne(cart)
+            let result = await cartsModel.findOneAndUpdate(
+                {
+                    _id : cid
+                },
+                {
+                    $push: {
+                        products: {product:pid},
+                    }
+                }
+            )
             return {success: "añadido correctamente"}
         }
         

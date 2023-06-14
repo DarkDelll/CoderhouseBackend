@@ -4,7 +4,6 @@ import productsModel from '../services/dao/Mongo/models/products.js';
 const productService = new ProductManager();
 
 export async function getProducts(req, res) {
-    // const respuesta = await productService.getProducts();
     const limite = req.query.limit || 5;
     const page = req.query.page || 1;
     let sort = req.query.sort ? {price:req.query.sort} : {}
@@ -35,20 +34,36 @@ export async function getProductsById (req,res){
 }
 
 export async function addProducts (req, res){
-    const { title, description,  code, price, stock, category, thumbnail } = req.body;
-    const respuesta = await productService.addProducts({title, description,  code, price, stock, category, thumbnail});
-    res.send(respuesta);
+    try {
+        const { title, description,  code, price, stock, category, thumbnail } = req.body;
+        const respuesta = await productService.addProducts({title, description,  code, price, stock, category, thumbnail});
+        res.send(respuesta);
+    } catch (error) {
+        res.status(500).send({error: error, message: "error al agregar productos"})
+    }
+    
 }
 
+
 export async function updateProduct (req,res){
-    let id = req.params.pid
-    const { campo, valor } = req.body
-    console.log(req.body)
-    const respuesta = await productService.updateProduct(parseInt(id), campo, valor)
-    res.send(respuesta)
+    try {
+        let id = req.params.pid
+        const { campo, valor } = req.body
+        console.log(req.body)
+        const respuesta = await productService.updateProduct(parseInt(id), campo, valor)
+        res.send(respuesta)
+    } catch (error) {
+        res.status(500).send({error: error, message: "error al actualizar el producto"})
+    }
+    
 }
 export async function deleteProduct (req,res){
-    let id = req.params.pid
-    const respuesta = await productService.deleteProduct(parseInt(id))
-    res.send(respuesta)
+    try {
+        let id = req.params.pid
+        const respuesta = await productService.deleteProduct(parseInt(id))
+        res.send(respuesta)
+    } catch (error) {
+        res.status(500).send({error: error, message: "error al eliminar el producto"})
+    }
+    
 }

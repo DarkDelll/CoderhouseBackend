@@ -1,5 +1,66 @@
-.formulario {
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td { 
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+    background-color: #F7F7F7;
+}
+
+.Login{
+    font-family: 'Rubik', sans-serif;
     display: flex;
-    flex-direction: row;
-    font-size: 24px;
+    flex-direction: column;
+    width: 100vw;
+    height: 100vh;
+    align-items:center;
+    align-content: center;
+    padding: 15%;
+    font-size: 1.25rem;
+    color: #33004A;
+    
+}
+.Login h1{
+    font-family: 'Montserrat', sans-serif;
+    font-size: 3rem;
+    padding-bottom: 3%;
+}
+#loginForm{
+    font-size: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 2%;
+}
+#loginForm input{
+    font-size: 1.5rem;
+    
+}
+.submit{
+    padding: 1%;
+    margin-top: 6%;
+    border-radius: 20px;
+}
+.Registro{
+    font-family: 'Rubik', sans-serif;
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    height: 100vh;
+    align-items:center;
+    align-content: center;
+    padding: 10%;
+    font-size: 1.25rem;
+    color: #33004A;
+}
+.Registro h1{
+    font-family: 'Montserrat', sans-serif;
+    font-size: 3rem;
+    padding-bottom: 3%;
+}
+#registerForm{
+    font-size: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 2%;
+}
+#registerForm input{
+    font-size: 1.5rem; 
 }

@@ -17,8 +17,10 @@ class ProductManager {
         let result = productsModel.create(product)
         return result
     }
-    async updateProduct(){
-
+    async updateProduct(pid, product){
+        const {id, ...destruct} = product
+        let result = productsModel.findByIdAndUpdate(pid,destruct)
+        return result
     }
     async deleteProduct(pid){
         let result = productsModel.deleteOne({_id: pid})

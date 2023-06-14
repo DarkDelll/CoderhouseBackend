@@ -1,6 +1,7 @@
 import express from 'express'
 import productsModel from '../services/dao/Mongo/models/products.js'
 import cartsModel from '../services/dao/Mongo/models/carts.js'
+import { authUser } from '../Utils.js'
 
 const router = express.Router()
 
@@ -11,22 +12,25 @@ router.get('/products', async (req, res)=>{
     result.prevLink = result.hasPrevPage?`http://localhost:8080/products?page=${result.prevPage}`:'';
     result.nextLink = result.hasNextPage?`http://localhost:8080/products?page=${result.nextPage}`:'';
     result.isValid= !(page<=0||page>result.totalPages)
-    res.render('index', {resultado: result, user: req.session.user, rol: req.session.rol})
+    res.render('index', {resultado: result, user: req.session.user})
 })
 router.get('/', (req, res)=>{
     res.redirect("/login");
 })
 
-router.get("/realtimeproducts", (req, res)=>{
+router.get("/current", (req, res)=>{
+    if(req.session.user.role==="admin"){
+        res.render("realTimeProducts",{userAdmin:true}); 
+    }
     res.render("realTimeProducts",{});
 });
-router.get("/chat", (req,res)=>{
-    res.render("chat",{})
+router.get("/chat", authUser, (req,res)=>{
+    res.render("chat",{user: req.session.user.email})
 })
-router.get("/carts/:cid", async(req,res)=>{
-    const cartId = req.params.cid
+router.get("/carts/", authUser, async(req,res)=>{
+    const cartId = req.session.user.cart
     let result = await cartsModel.findById(cartId).lean()
-    res.render('carts', {result, products: result.products})
+    res.render('carts', {result, products: result.products, user: req.session.user})
 })
 router.get('/login', (req, res)=>{
     res.render("login");

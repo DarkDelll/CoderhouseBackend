@@ -1,10 +1,8 @@
 import {Router} from 'express'
 import passport from 'passport';
-import cookieParser from 'cookie-parser';
-import { generateJWToken } from '../Utils.js';
+import userDTO from '../services/dto/user.dto.js';
 const router = Router();
 
-router.use(cookieParser('HOLACOMO26323'))
 
 router.get("/github", passport.authenticate('github', {scope: ['user:email']}), async (req, res) => {});
 
@@ -25,18 +23,16 @@ router.post("/register", passport.authenticate('register', { failureRedirect: '/
 
 router.post("/login", passport.authenticate('login', { failureRedirect: '/api/sessions/fail-login' }), async (req, res) => {
     const user = req.user;
+    const usuario = new userDTO(user)
     if (!user) return res.status(401).send({ status: "error", error: "El usuario y la contraseña no coinciden!" });
      req.session.user = {
-         name: `${user.first_name} ${user.last_name}`,
-         email: user.email,
-         age: user.age
-        }  
-     req.session.rol={
-            rol:'usuario'
+         name: usuario.name,
+         email: usuario.email,
+         age: usuario.age,
+         cart: usuario.cart,
+         role: usuario.role
         }
-
-    const access_token = generateJWToken(user);
-    res.send({access_token: access_token});
+    res.send({success: "login exitoso"});
 });
 
 router.get("/fail-register", (req, res) => {
