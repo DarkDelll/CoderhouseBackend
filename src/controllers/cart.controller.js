@@ -38,9 +38,10 @@ export async function cartPurchase(req,res){
         const cartid = req.params.cid
         const cart = await cartService.getCart(cartid)
         const cartProducts = cart.products
-        const disponible = cartProducts.filter(productos=>productos.product.status && productos.product.stock - productos.quantity > 0)
-        const noDisponible = cartProducts.filter(productos=>productos.product.status && productos.product.stock - productos.quantity < 0)
-
+        const disponible = cartProducts.filter(productos=> productos.product.stock - productos.quantity > 0)
+        const noDisponible = cartProducts.filter(productos=> productos.product.stock - productos.quantity < 0)
+        console.log(disponible)
+        console.log(noDisponible)
         const precioTotal = disponible.reduce((acc, producto) => acc + (producto.product.price * producto.quantity), 0);
         const user = await userService.getUserByCartId(cartid)
         const userEmail = user.email
@@ -67,8 +68,9 @@ export async function cartPurchase(req,res){
         if (noDisponible){
             noDisponible.map(async (producto)=>{
                 let addProducto = await cartService.addProducts(cartid, producto.product._id)
-                return res.status(201).send(cart)
+                return addProducto
             })
+            return res.status(201).send(cart)
         }
 
         
