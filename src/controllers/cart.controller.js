@@ -28,7 +28,7 @@ export async function addProducts(req,res){
         const cartid = req.params.cid
         const productid = req.params.pid
         let respuesta = await cartService.addProducts(cartid,productid)
-        res.send(respuesta)
+        res.status(200).send(respuesta)
     } catch (error) {
         res.status(500).send({error: error, message: "no se pudo agregar el producto"})
     }
@@ -60,6 +60,16 @@ export async function cartPurchase(req,res){
           let result =  await productService.updateProduct(productos.product._id, productos.product)
           return result
         })
+
+        const vaciarCarrito = await cartService.emptyCart(cartid)
+        vaciarCarrito
+
+        if (noDisponible){
+            noDisponible.map(async (producto)=>{
+                let addProducto = await cartService.addProducts(cartid, producto.product._id)
+                return res.status(201).send(cart)
+            })
+        }
 
         
         res.status(200).send(cart)

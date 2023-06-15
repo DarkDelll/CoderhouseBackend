@@ -10,7 +10,10 @@
             <p>Cantidad: {{this.quantity}}</p>
         </div>
     {{/each}}
-    <form action="http://localhost:8080/api/carts/{{user.cart}}/purchase" method="POST">
+    <form id="formCarrito" action="http://localhost:8080/api/carts/{{user.cart}}/purchase" method="POST">
+    <script> window.usercart = "{{user.cart}}"</script>
     <button type="submit">Finalizar Compra</button>
     </form>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="/js/cart.js"></script>

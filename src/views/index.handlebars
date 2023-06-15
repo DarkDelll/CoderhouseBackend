@@ -3,6 +3,7 @@
     <h4>Bienvenido {{user.role}}</h4>
     <span>{{user.name}}</span>
     <span>{{user.email}}</span>
+    <script> window.usercart = "{{user.cart}}"</script>
     <a href="/carts/">Ir al Carrito</a>
     <a href="/logout">cerrar sesión</a>
     {{#each resultado.docs}}
@@ -11,7 +12,7 @@
             <p>Id: {{this._id}} </p>
             <p>Nombre: {{this.title}}</p>
             <p>Precio: {{this.price}} </p>
-            <form action="http://localhost:8080/api/carts/{{../user.cart}}/product/{{this._id}}" method="POST">
+            <form class="addProducts" onsubmit="handleSubmit(event)" action="http://localhost:8080/api/carts/{{../user.cart}}/product/{{this._id}}" method="POST">
                 <button type="submit">añadir producto</button>
             </form> 
         </div>
@@ -28,3 +29,5 @@
         <a href={{resultado.nextLink}}>Siguiente </a>
     {{/if}} 
 </div>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="/js/products.js"> </script>
