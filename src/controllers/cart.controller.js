@@ -110,8 +110,6 @@ export async function cartPurchase(req,res){
             })
             return res.status(201).send(cart)
         }
-        
-        
         res.status(200).send(cart, result)
         
     } catch (error) {
