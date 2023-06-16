@@ -102,15 +102,15 @@ export async function cartPurchase(req,res){
         } catch (error) {
             console.error(error);
         }
-
-        if (noDisponible){
+        console.log(noDisponible)
+        if (noDisponible.length !== 0){
             noDisponible.map(async (producto)=>{
                 let addProducto = await cartService.addProducts(cartid, producto.product._id)
                 return addProducto
             })
             return res.status(201).send(cart)
         }
-        res.status(200).send(cart, result)
+        res.status(200).send(cart)
         
     } catch (error) {
         res.status(500).send({error: error, message: "no se pudo finalizar la compra"})
