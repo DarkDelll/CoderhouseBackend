@@ -102,7 +102,7 @@ export async function cartPurchase(req,res){
         } catch (error) {
             console.error(error);
         }
-        console.log(noDisponible)
+        
         if (noDisponible.length !== 0){
             noDisponible.map(async (producto)=>{
                 let addProducto = await cartService.addProducts(cartid, producto.product._id)
