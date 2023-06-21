@@ -2,6 +2,7 @@ import {fileURLToPath} from 'url';
 import { dirname } from 'path';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import { faker } from '@faker-js/faker';
 
 
 const __filename = fileURLToPath(import.meta.url);
@@ -32,6 +33,20 @@ export function authAdmin(req,res,next){
         return next();
     }
     return res.status(403).send('Usuario no autorizado para visualizar el contenido')
+}
+
+export const generateProduct = ()=>{
+
+    return {
+        _id: faker.database.mongodbObjectId(),
+        title: faker.commerce.productName(),
+        description: faker.commerce.productDescription(),
+        code: faker.random.alpha(10),
+        price: faker.commerce.price(),
+        status: true,
+        stock: faker.random.numeric(2),
+        category:faker.commerce.department(),
+        thumbnails:faker.image.image() }
 }
 
 

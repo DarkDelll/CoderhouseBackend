@@ -1,3 +1,4 @@
+import { generateProduct } from "../Utils.js";
 import ProductManager from "../services/dao/Mongo/ProductManagerDB.js";
 import productsModel from '../services/dao/Mongo/models/products.js';
 
@@ -42,6 +43,19 @@ export async function addProducts (req, res){
         res.status(500).send({error: error, message: "error al agregar productos"})
     }
     
+}
+
+export async function getMockedProducts(req, res){
+    try {
+        let products = [];
+        for (let i = 0; i < 100; i++) {
+            products.push(generateProduct());
+        }
+        res.send({ status: "success", payload: products });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send({ error: error, message: "No se pudo obtener los productos:" });
+    }
 }
 
 
