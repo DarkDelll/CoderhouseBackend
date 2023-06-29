@@ -15,6 +15,8 @@ import MongoStore from 'connect-mongo';
 import passport from "passport";
 import githubLoginViewRouter from "./routes/github-login.views.router.js"
 import initializePassport from "./config/passport.config.js";
+import { addLogger } from "./config/logger.js";
+import loggerTest from './routes/loggerTest.js'
 
 
 const app = express();
@@ -45,11 +47,14 @@ initializePassport()
 app.use(passport.initialize())
 app.use(passport.session())
 
+app.use(addLogger)
+
 app.use("/", viewRouter);
 app.use("/api/products", RouterProduct);
 app.use("/api/carts", RouterCart);
 app.use("/api/sessions", sessionRouter);
 app.use("/github", githubLoginViewRouter);
+app.use("/loggerTest", loggerTest)
 
 
 
