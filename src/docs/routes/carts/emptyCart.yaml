@@ -1,0 +1,17 @@
+paths:
+  /api/carts/{cid}:
+    delete:
+      summary: Vacía el carrito seleccionado.
+      tags:
+        - Carritos
+      parameters:
+      - name: cid
+        in: path
+        description: El parametro corresponda al id del carrito.
+        required: true
+        type: string
+      responses:
+        "204":
+          description: Carrito vaciado correctamente.
+        "404":
+          description: Cart not found Error

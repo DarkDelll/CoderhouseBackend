@@ -1,0 +1,50 @@
+# NewProduct
+components:
+  requestBodies:
+    NewProduct:
+      type: object
+      required:
+        - title
+        - description
+        - code
+        - price
+        - stock
+        - category
+      properties:
+        _id:
+          type: ObjectId
+          description: Id autogenerado por MongoDB.
+        title:
+          type: string
+          description: Nombre del producto.
+        description:
+          type: string
+          description: Descripcion del producto.
+        code:
+          type: string
+          description: El código unico del producto.
+        price:
+          type: number
+          description: Precio del producto.
+        status:
+          type: boolean
+          description: El estado del producto.
+        stock:
+          type: number
+          description: Cantidad disponible.
+        category:
+          type: string
+          description: Categoría a la que pertenece.
+        thumbnail:
+          type: string
+          description: fotografia representativa.
+      example:
+         _id: ObjectId('643afae585f320951ee3e02d')
+         title: Pan de molde
+         description: El mejor pan fresco
+         code: FAS12341
+         price: 1000
+         status: true
+         stock: 10
+         category: Pan
+         thumbnail: google.com/images/a1411asdasf1

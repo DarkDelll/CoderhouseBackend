@@ -1,0 +1,17 @@
+paths:
+  /api/products/{id}:
+    delete:
+      summary: Elimina el producto con el id proporcionado
+      tags:
+        - Productos
+      parameters:
+      - name: id
+        in: path
+        description: El parametro corresponda al id del producto.
+        required: true
+        type: string
+      responses:
+        "204":
+          description: Producto eliminado correctamente
+        "404":
+          description: Product not found Error

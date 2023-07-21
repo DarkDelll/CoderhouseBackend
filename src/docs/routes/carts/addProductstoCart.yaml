@@ -1,0 +1,28 @@
+paths:
+  /api/carts/{cid}/product/{pid}:
+    post:
+      summary: Agrega un producto al carrito.
+      tags: 
+        - Carritos
+      parameters:
+      - name: cid
+        in: path
+        description: El parametro corresponde al id del carrito.
+        required: true
+        type: string
+      - name: pid
+        in: path
+        description: El parametro corresponde al id del producto.
+        required: true
+        type: string
+      responses:
+        "201":
+          description: Producto agregado correctamente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cart'
+        "500":
+          description: No se pudo agregar el producto.
+    
+            

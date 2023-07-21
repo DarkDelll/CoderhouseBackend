@@ -1,0 +1,15 @@
+# NewCart
+components:
+  requestBodies:
+    NewCart:
+      type: object
+      properties:
+      _id:
+          type: ObjectId
+          description: Id del carrito
+      products:
+          type: array
+          description: productos contenidos en el carrito
+      example:
+        ""
+      

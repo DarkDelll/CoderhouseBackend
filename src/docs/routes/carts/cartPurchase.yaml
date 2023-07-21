@@ -1,0 +1,18 @@
+paths:
+  /api/carts/{cid}/purchase:
+    post:
+      summary: Concreta la compra del carrito seleccionado.
+      tags: 
+        - Carritos
+      parameters:
+      - name: cid
+        in: path
+        description: El parametro corresponde al id del carrito.
+        required: true
+        type: string
+      responses:
+        "200":
+          description: La compra se ha concretado correctamente.
+        "500":
+          description: Error al finalizar la compra.
+          

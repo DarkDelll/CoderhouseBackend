@@ -1,0 +1,19 @@
+#CartSchema
+components:
+  schemas:
+    Cart:
+      type: object
+      properties:
+        _id:
+          type: ObjectId
+          description: Id del carrito
+        products:
+          type: array
+          description: Array con los productos contenidos.
+          _id:
+            type: ObjectId
+            description: id del producto.
+      example:
+        _id: ObjectId('643afae585f320951ee3e02d')
+        products: [{_id: ObjectId('643afae585f320951ee3e02d')},{_id: ObjectId('643afae585f320951ee3e02d')}]
+
