@@ -32,7 +32,7 @@ router.post("/login", passport.authenticate('login', { failureRedirect: '/api/se
          cart: usuario.cart,
          role: usuario.role
         }
-    res.send({success: "login exitoso"});
+    res.status(200).send({success: "login exitoso"});
 });
 
 router.get("/fail-register", (req, res) => {

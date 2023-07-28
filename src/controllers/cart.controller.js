@@ -49,7 +49,7 @@ export async function cartPurchase(req,res){
 
         const ticketNuevo = {code: code, amount: precioTotal, purchaser: userEmail}
         const ticket = await ticketService.createTicket(ticketNuevo)
-
+        
         const newProducts = disponible.map((producto)=>{
             const productoNuevo = disponible.find(p => p.product._id === producto.product._id);
             if (productoNuevo) {

@@ -31,14 +31,14 @@ export async function getProducts(req, res) {
 export async function getProductsById (req,res){
     let id = req.params.pid
     const respuesta = await productService.getProductById(id)
-    res.send(respuesta)
+    res.status(200).send(respuesta)
 }
 
 export async function addProducts (req, res){
     try {
         const { title, description,  code, price, stock, category, thumbnail } = req.body;
         const respuesta = await productService.addProducts({title, description,  code, price, stock, category, thumbnail});
-        res.send(respuesta);
+        res.status(201).send(respuesta);
     } catch (error) {
         res.status(500).send({error: error, message: "error al agregar productos"})
     }
@@ -74,7 +74,7 @@ export async function updateProduct (req,res){
 export async function deleteProduct (req,res){
     try {
         let id = req.params.pid
-        const respuesta = await productService.deleteProduct(parseInt(id))
+        const respuesta = await productService.deleteProduct(id)
         res.send(respuesta)
     } catch (error) {
         res.status(500).send({error: error, message: "error al eliminar el producto"})
