@@ -7,7 +7,7 @@ const requester = supertest('http://localhost:8080/api/products');
 describe('Tests de la ruta Products', async function () {
 
     before(function () {
-        this.productCreatedID = null;
+        this.productID = null;
     });
 
 
@@ -15,7 +15,7 @@ describe('Tests de la ruta Products', async function () {
     it('Test para crear producto: se debe crear un producto', async function () {
 
         const product = {
-            "title": "producto",
+            "title": "producto01",
             "description": "Producto generado en el test",
             "code": "code01",
             "price": 11111,
@@ -27,7 +27,7 @@ describe('Tests de la ruta Products', async function () {
         const { statusCode, body } =
             await requester.post('/').send(product);
         
-        this.productCreatedID = body._id;
+        this.productID = body._id;
 
         expect(statusCode).to.be.equal(201);
         expect(body).to.be.an('object').and.have.property('_id');
@@ -36,7 +36,7 @@ describe('Tests de la ruta Products', async function () {
     it('Test eliminar product: se debe eliminar el producto creado y tener la propiedad deletedCount.', async function () {
 
         const { statusCode, body } =
-            await requester.delete(`/${this.productCreatedID}`);
+            await requester.delete(`/${this.productID}`);
 
         expect(statusCode).to.be.ok;
         expect(body).to.have.property('deletedCount');

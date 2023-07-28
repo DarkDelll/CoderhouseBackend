@@ -22,7 +22,7 @@ export async function getCartById(req,res){
 
 export async function createCart(req,res){
     const newCart = await cartService.newCart()
-    res.send(newCart)
+    res.status(201).send(newCart)
 }
 
 export async function addProducts(req,res){
