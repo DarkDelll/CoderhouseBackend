@@ -25,7 +25,7 @@ import {swaggerSpecs}  from "./swaggerSpecs.js";
 
 
 const app = express();
-const PORT = config.port;
+const PORT = process.env.PORT;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
