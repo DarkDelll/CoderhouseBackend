@@ -25,7 +25,7 @@ import {swaggerSpecs}  from "./swaggerSpecs.js";
 
 
 const app = express();
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 8080;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -48,7 +48,7 @@ app.use(express.static(__dirname + "/public/"));
 const MONGO_URL = config.mongoURL
 app.use(session({
   store:MongoStore.create({
-    mongoUrl:MONGO_URL,
+    mongoUrl:process.env.MONGO_URL || MONGO_URL,
     mongoOptions: {useNewUrlParser: true, useUnifiedTopology: true},
     ttl: 120000
   }),
@@ -104,7 +104,7 @@ socketServer.on("connection", async (socket) => {
 
 const connectMongoDB = async ()=>{
   try {
-    await mongoose.connect(MONGO_URL)
+    await mongoose.connect(process.env.MONGO_URL || MONGO_URL,)
     console.log("Conectado con exito a MongoDB usando Moongose.");
   }
   catch(error) {
