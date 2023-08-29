@@ -34,12 +34,9 @@ class UserManager{
     async updateUser(uid){
         const filter = {_id: uid}
         const update = {role:"premium"}
-        try {
-            const updatedUser = await userModel.findOneAndUpdate(filter, update);
-            return updatedUser
-        } catch (err) {
-            return err;
-        }
+        const updatedUser = await userModel.findOneAndUpdate(filter, update);
+        return updatedUser
+        
     }
 
 
