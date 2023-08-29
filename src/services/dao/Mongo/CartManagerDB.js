@@ -2,7 +2,7 @@ import cartsModel from "./models/carts.js";
 
 class CartManager{
     constructor(){
-        console.log('Carritos con persistencia de datos en mongoDB')
+        
     }
     async newCart(cart){
         let result = await cartsModel.create(cart)

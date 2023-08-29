@@ -53,7 +53,7 @@ const initializePassport = ()=>{
 
                 const exists = await userManager.getuser( email );
                 if (exists) {
-                    console.log("El usuario ya existe.");
+                    
                     return done(null, false);
                 }
 

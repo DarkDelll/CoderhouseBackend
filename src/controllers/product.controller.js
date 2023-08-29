@@ -61,7 +61,7 @@ export async function updateProduct (req,res){
     try {
         let id = req.params.pid
         const { campo, valor } = req.body
-        console.log(req.body)
+        
         const respuesta = await productService.updateProduct(parseInt(id), campo, valor)
         res.send(respuesta)
     } catch (error) {

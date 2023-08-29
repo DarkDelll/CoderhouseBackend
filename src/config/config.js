@@ -7,7 +7,6 @@ program
     .option('-p <port>', 'Puerto del servidor', 8080)
     .option('--mode <mode>', 'Modo de trabajo', 'develop')
 program.parse()
-console.log("Mode Option: ", program.opts().mode)
 
 const environment = program.opts().mode;
 

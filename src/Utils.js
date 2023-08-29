@@ -40,6 +40,12 @@ export function authPremium(req,res,next){
     }
     return res.status(403).send('Usuario no autorizado para acceder al contenido')
 }
+export function authPremiumOrAdmin(req,res,next){
+    if(req.session.user.role === 'premium' || req.session.user.role === 'admin'){
+        return next();
+    }
+    return res.status(403).send('Usuario no autorizado para acceder al contenido')
+}
 
 export const generateProduct = ()=>{
 

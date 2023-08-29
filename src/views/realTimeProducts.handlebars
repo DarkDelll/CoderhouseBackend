@@ -1,4 +1,20 @@
 <div>
+    <h2>Lista de Productos</h2>
+    <h4>Bienvenido {{user.role}}</h4>
+    <span>{{user.name}}</span>
+    <span>{{user.email}}</span>
+    {{#ifeq user.role "admin"}}
+        <a href="/current">Administrar Productos</a>
+    {{/ifeq}}
+    {{#ifeq user.role "admin"}}
+        <a href="/current">Administrar Usuarios</a>
+    {{/ifeq}}
+    {{#ifeq user.role "premium"}}
+        <a href="/carts/">Ir al Carrito</a>
+    {{/ifeq}}
+    <a href="/logout">cerrar sesión</a>
+</div>
+<div>
     <p id="datos"></p>
 </div>
 <div>
@@ -13,6 +29,7 @@
         <input type="submit" id="enviar">  
     </form>
 </div>
+{{#ifeq user.role "admin"}}
 <div>
     <h2>Eliminar producto</h2>
     <form action="" id="eliminar">
@@ -28,7 +45,8 @@
         <input type="submit">
 
     </form>
-</div> 
+</div>
+{{/ifeq}}
 
 <script src="/socket.io/socket.io.js"></script>
 <script src="/js/realtimeproducts.js"></script>

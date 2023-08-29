@@ -32,5 +32,5 @@ form.addEventListener('submit',e=>{
             )
         }
    
-    }).then(json=>console.log(json));
+    });
 })

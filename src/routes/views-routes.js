@@ -2,7 +2,7 @@ import express from "express";
 import productsModel from "../services/dao/Mongo/models/products.js";
 import cartsModel from "../services/dao/Mongo/models/carts.js";
 import { usersService } from "../services/repository/services.js";
-import { authUser, authAdmin } from "../Utils.js";
+import { authUser, authAdmin, authPremiumOrAdmin } from "../Utils.js";
 
 const router = express.Router();
 
@@ -23,7 +23,7 @@ router.get("/", (req, res) => {
   res.redirect("/login");
 });
 
-router.get("/current", authAdmin, (req, res) => {
+router.get("/current", authPremiumOrAdmin, (req, res) => {
   res.render("realTimeProducts", {});
 });
 router.get("/chat", authUser, (req, res) => {

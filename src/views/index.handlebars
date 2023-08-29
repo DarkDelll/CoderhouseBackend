@@ -7,7 +7,13 @@
     {{#ifeq user.role "user"}}
         <a href="/carts/">Ir al Carrito</a>
     {{/ifeq}}
+    {{#ifeq user.role "premium"}}
+        <a href="/carts/">Ir al Carrito</a>
+    {{/ifeq}}
     {{#ifeq user.role "admin"}}
+        <a href="/current">Administrar Productos</a>
+    {{/ifeq}}
+    {{#ifeq user.role "premium"}}
         <a href="/current">Administrar Productos</a>
     {{/ifeq}}
     {{#ifeq user.role "admin"}}

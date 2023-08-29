@@ -85,12 +85,11 @@ socketServer.on("connection", async (socket) => {
   socket.emit("products", await productService.getProducts());
 
   socket.on("new-product", async (data) => {
-    console.log(
       await productService.addProducts(data)
-    );
+    
   });
   socket.on("delete-product", async (id) => {
-    console.log(await productService.deleteProduct(+id));
+    await productService.deleteProduct(+id);
   });
 
   socket.on('message', async data =>{

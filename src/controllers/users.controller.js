@@ -20,7 +20,7 @@ export async function getPremium(req, res) {
     res.status(200).send(user);
   } catch (error) {
     res.status(404).send({message: error.message});
-    console.log(error.message)
+    
   }
 }
 

@@ -49,8 +49,7 @@ describe("Testing de Sesiones Api Ecommerce", () => {
 
             //Then: 
             const result = await requester.post('/api/sessions/login').send(mockLogin);
-            console.log(result.body);
-
+            
 
             //Assert that:
             expect(result.statusCode).is.equal(200);

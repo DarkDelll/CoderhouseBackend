@@ -15,7 +15,7 @@ class ProductManager {
         await fs.promises.writeFile(this.path, "[]");
       }
     } catch (error) {
-      console.log(error);
+      
     }
   }
 
@@ -72,7 +72,7 @@ class ProductManager {
         return {Error: "hay un campo vacío"};
       }
     } catch (error) {
-      console.log(error);
+      
     }
   }
   async getProducts() {

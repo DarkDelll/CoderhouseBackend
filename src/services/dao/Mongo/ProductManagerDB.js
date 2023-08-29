@@ -2,7 +2,7 @@ import productsModel from "./models/products.js";
 
 class ProductManager {
     constructor(){
-        console.log('Productos con persistencia de datos en mongoDB')
+        
     }
     async getProducts(){
         let products = await productsModel.find()

@@ -1,5 +1,5 @@
 const premium = document.getElementById("premium");
-console.log("hola");
+
 
 premium.addEventListener("submit", (e) => {
   e.preventDefault();

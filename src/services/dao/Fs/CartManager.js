@@ -15,7 +15,7 @@ class CartManager {
         await fs.promises.writeFile(this.path, "[]");
       }
     } catch (error) {
-      console.log(error);
+      
     }
   }
   async getCart(id) {

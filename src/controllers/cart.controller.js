@@ -47,7 +47,7 @@ export async function cartPurchase(req,res){
         const user = await usersService.getUserByCartId(cartid)
         const userEmail = user.email
         const code = new Date().getTime()
-        console.log(disponible)
+        
         if(noDisponible.length > 0){
             noDisponible.map(async (producto)=> {
                 const cambiostatus = await productService.updateProduct(producto.product._id, {status: "false"})
@@ -84,10 +84,8 @@ export async function cartPurchase(req,res){
         });
         transporter.verify(function (error, success) {
             if (error) {
-                console.log(error);
-            } else {
-                console.log('Server is ready to take our messages');
-            }
+                
+            } 
         });
 
         const mailOptions = {
@@ -101,10 +99,10 @@ export async function cartPurchase(req,res){
         try {
             let result2 = transporter.sendMail(mailOptions, (error, info) => {
                 if (error) {
-                    console.log(error);
+                    
                     res.status(400).send({ message: "Error", payload: error })
                 }
-                console.log('Message sent: ', info.messageId);
+                
                 
             })
         } catch (error) {
