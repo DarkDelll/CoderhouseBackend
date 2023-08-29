@@ -1,14 +1,8 @@
-import CartManager from "../services/dao/Mongo/CartManagerDB.js";
-import ProductManager from "../services/dao/Mongo/ProductManagerDB.js";
-import TicketManager from "../services/dao/Mongo/TicketManager.js";
-import UserManager from "../services/dao/Mongo/UserManager.js";
+import { productService, cartService, usersService, ticketService  } from '../services/repository/services.js';
 import nodemailer from 'nodemailer';
 import config from '../config/config.js';
 
-const cartService = new CartManager();
-const productService = new ProductManager();
-const userService = new UserManager();
-const ticketService = new TicketManager();
+
 
 export async function getCartById(req,res){
     try {
@@ -16,13 +10,19 @@ export async function getCartById(req,res){
         const carts = await cartService.getCart(id)
         res.send(carts)
     } catch (error) {
+        req.logger.error(error)
         res.status(500).send({error: error, message: "no se pudo obtener el carrito"})
     }
 }
 
 export async function createCart(req,res){
+    try{
     const newCart = await cartService.newCart()
-    res.status(201).send(newCart)
+    res.status(201).send(newCart)}
+    catch(error){
+        req.logger.error(error)
+        res.status(500).send({error: error, message: "no se pudo crear el carrito"})
+    }
 }
 
 export async function addProducts(req,res){
@@ -32,6 +32,7 @@ export async function addProducts(req,res){
         let respuesta = await cartService.addProducts(cartid,productid)
         res.status(200).send(respuesta)
     } catch (error) {
+        req.logger.warning(error)
         res.status(500).send({error: error, message: "no se pudo agregar el producto"})
     }
 }
@@ -40,12 +41,19 @@ export async function cartPurchase(req,res){
         const cartid = req.params.cid
         const cart = await cartService.getCart(cartid)
         const cartProducts = cart.products
-        const disponible = cartProducts.filter(productos=> productos.product.stock - productos.quantity > 0)
+        const disponible = cartProducts.filter(productos=> productos.product.stock - productos.quantity >= 0)
         const noDisponible = cartProducts.filter(productos=> productos.product.stock - productos.quantity < 0)
         const precioTotal = disponible.reduce((acc, producto) => acc + (producto.product.price * producto.quantity), 0);
-        const user = await userService.getUserByCartId(cartid)
+        const user = await usersService.getUserByCartId(cartid)
         const userEmail = user.email
         const code = new Date().getTime()
+        console.log(disponible)
+        if(noDisponible.length > 0){
+            noDisponible.map(async (producto)=> {
+                const cambiostatus = await productService.updateProduct(producto.product._id, {status: "false"})
+                return cambiostatus
+            })
+        }
 
         const ticketNuevo = {code: code, amount: precioTotal, purchaser: userEmail}
         const ticket = await ticketService.createTicket(ticketNuevo)
@@ -67,11 +75,11 @@ export async function cartPurchase(req,res){
         vaciarCarrito
 
         const transporter = nodemailer.createTransport({
-            service: 'gmail',
+            service: config.mailing.SERVICE,
             port: 587,
             auth: {
-                user: config.gmailAccount,
-                pass: config.gmailAppPassword
+                user: config.mailing.USER,
+                pass: config.mailing.PASSWORD
             }
         });
         transporter.verify(function (error, success) {
@@ -113,6 +121,7 @@ export async function cartPurchase(req,res){
         res.status(200).send(cart)
         
     } catch (error) {
+        req.logger.error(error)
         res.status(500).send({error: error, message: "no se pudo finalizar la compra"})
     }
 }
@@ -124,6 +133,7 @@ export async function deleteProducts(req,res){
         let respuesta = await cartService.deleteProducts(cartid,productid)
         res.send(respuesta)
     } catch (error) {
+        req.logger.warning(error)
         res.status(500).send({error: error, message: "no se pudo eliminar el producto"})
     }
     
@@ -135,6 +145,7 @@ export async function updateProducts(req,res){
         let respuesta = await cartService.updateProducts(cartid,array)
         res.send(respuesta)
     } catch (error) {
+        req.logger.warning(error)
         res.status(500).send({error: error, message: "no se pudo actualizar los productos"})
     }
     
@@ -147,6 +158,7 @@ export async function updateQuantity(req,res){
         let respuesta = await cartService.updateQuantity(cartid,productid,parseInt(quantity))
         res.send(respuesta)
     } catch (error) {
+        req.logger.warning(error)
         res.status(500).send({error: error, message: "error al actualizar la cantidad"})
     }
     
@@ -157,6 +169,7 @@ export async function emptyCart(req,res){
         let respuesta = await cartService.emptyCart(cartid)
         res.send(respuesta)
     } catch (error) {
+        req.logger.error(error)
         res.status(500).send({error: error, message: "error al vaciar el carrito"})
     }
     

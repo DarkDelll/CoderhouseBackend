@@ -2,14 +2,16 @@ import express, { application } from "express";
 import RouterProduct from "./routes/product-routes.js";
 import RouterCart from "./routes/cart-routes.js";
 import handlebars from "express-handlebars";
+import exphbs from "express-handlebars";
 import __dirname from "./Utils.js";
 import viewRouter from "./routes/views-routes.js";
 import { Server } from "socket.io";
 import config from "./config/config.js";
 import mongoose from "mongoose";
-import ProductManager from "./services/dao/Mongo/ProductManagerDB.js";
+import { productService } from "./services/repository/services.js";
 import MessagesManager from "./services/dao/Mongo/MessagesManagerDB.js";
 import sessionRouter from "./routes/sessions-routes.js";
+import userRouter from "./routes/users-routes.js";
 import session from 'express-session';
 import MongoStore from 'connect-mongo';
 import passport from "passport";
@@ -31,6 +33,15 @@ app.use(express.urlencoded({ extended: true }));
 app.engine("handlebars", handlebars.engine());
 app.set("views", __dirname + "/views");
 app.set("view engine", "handlebars");
+const handlebarss = exphbs.create();
+
+handlebarss.handlebars.registerHelper('ifeq', function(a, b, options) {
+    if (a === b) {
+        return options.fn(this);
+    } else {
+        return options.inverse(this);
+    }
+});
 
 app.use(express.static(__dirname + "/public/"));
 
@@ -39,7 +50,7 @@ app.use(session({
   store:MongoStore.create({
     mongoUrl:MONGO_URL,
     mongoOptions: {useNewUrlParser: true, useUnifiedTopology: true},
-    ttl: 40
+    ttl: 120000
   }),
   secret:"CoderS3cret",
   resave: false,
@@ -60,6 +71,7 @@ app.use("/api/sessions", sessionRouter);
 app.use("/github", githubLoginViewRouter);
 app.use("/loggerTest", loggerTest);
 app.use("/api/docs", swaggerUiExpress.serve, swaggerUiExpress.setup(swaggerSpecs))
+app.use("/api/users", userRouter )
 
 
 
@@ -68,7 +80,6 @@ const httpServer = app.listen(PORT, () => {
 });
 
 const socketServer = new Server(httpServer);
-const productService = new ProductManager();
 let messages = []
 socketServer.on("connection", async (socket) => {
   socket.emit("products", await productService.getProducts());

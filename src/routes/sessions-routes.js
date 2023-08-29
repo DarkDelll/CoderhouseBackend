@@ -32,6 +32,8 @@ router.post("/login", passport.authenticate('login', { failureRedirect: '/api/se
          cart: usuario.cart,
          role: usuario.role
         }
+        req.user.lastLogin = Date.now();
+        req.user.save();
     res.status(200).send({success: "login exitoso"});
 });
 

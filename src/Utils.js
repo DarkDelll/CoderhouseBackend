@@ -26,13 +26,19 @@ export function authUser(req,res,next){
     if(req.session.user.role === 'user'){
         return next();
     }
-    return res.status(403).send('Usuario no autorizado para visualizar el contenido')
+    return res.status(403).send('Usuario no autorizado para acceder al contenido')
 }
 export function authAdmin(req,res,next){
     if(req.session.user.role === 'admin'){
         return next();
     }
-    return res.status(403).send('Usuario no autorizado para visualizar el contenido')
+    return res.status(403).send('Usuario no autorizado para acceder al contenido')
+}
+export function authPremium(req,res,next){
+    if(req.session.user.role === 'premium'){
+        return next();
+    }
+    return res.status(403).send('Usuario no autorizado para acceder al contenido')
 }
 
 export const generateProduct = ()=>{

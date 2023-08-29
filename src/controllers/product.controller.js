@@ -1,8 +1,6 @@
 import { generateProduct } from "../Utils.js";
-import ProductManager from "../services/dao/Mongo/ProductManagerDB.js";
+import { productService } from "../services/repository/services.js";
 import productsModel from '../services/dao/Mongo/models/products.js';
-
-const productService = new ProductManager();
 
 export async function getProducts(req, res) {
     const limite = req.query.limit || 5;

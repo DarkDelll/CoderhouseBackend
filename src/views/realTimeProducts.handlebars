@@ -1,7 +1,6 @@
 <div>
     <p id="datos"></p>
 </div>
-{{#if userAdmin}}
 <div>
     <h2>Ingresar Nuevo Producto</h2>
     <form action="" class="formulario" id="formulario-ingreso" >
@@ -17,11 +16,19 @@
 <div>
     <h2>Eliminar producto</h2>
     <form action="" id="eliminar">
-        <input type="text" id="id" placeholder="Ingresar ID">
+        <input type="text" id="ideliminar" placeholder="Ingresar ID">
         <input type="submit">
     </form>
+</div>
+<div>
+    <h2>Actualizar Cantidad</h2>
+    <form action="" id="actualizar">
+        <input type="text" id = "idactualizar"placeholder="ID del Producto"><br>
+        <input type="number" id="cantidad" placeholder="Cantidad"><br>
+        <input type="submit">
+
+    </form>
 </div> 
-    {{/if}}
 
 <script src="/socket.io/socket.io.js"></script>
 <script src="/js/realtimeproducts.js"></script>

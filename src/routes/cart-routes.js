@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { addProducts, createCart, deleteProducts, emptyCart, getCartById, updateProducts, updateQuantity, cartPurchase } from "../controllers/cart.controller.js";
-
+import { authUser, authAdmin, authPremium } from '../Utils.js'
 const router = Router()
 
 router.get("/:cid", getCartById)

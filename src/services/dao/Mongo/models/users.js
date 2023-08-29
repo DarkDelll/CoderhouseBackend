@@ -15,7 +15,11 @@ const schema = mongoose.Schema({
                 ref:"carts"
     
     },
-    role: {type:String, default:"user"}
+    role: {type:String, default:"user"},
+    lastLogin: {
+        type: Date,
+        default: Date.now
+    }
 })
 schema.pre('findOne',function(){
     this.populate("carts")

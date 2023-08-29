@@ -1,8 +1,7 @@
 import userModel from "./models/users.js";
-import config from "../../../config/config.js";
+import userDTO from "../../dto/user.dto.js";
 
 class UserManager{
-    
 
     async createUser(usuario){
         let user = await userModel.create(usuario)
@@ -20,6 +19,27 @@ class UserManager{
     async getUserByCartId(cid){
         let user = await userModel.findOne({carts: cid})
         return user
+    }
+    async getAllUsers(){
+        let users = await userModel.find()
+        const usuarios = users.map(user => {
+            return new userDTO(user);
+        });
+        return usuarios
+    }
+    async deleteUser(uid){
+        let result = await userModel.deleteOne({_id: uid})
+        return result
+    }
+    async updateUser(uid){
+        const filter = {_id: uid}
+        const update = {role:"premium"}
+        try {
+            const updatedUser = await userModel.findOneAndUpdate(filter, update);
+            return updatedUser
+        } catch (err) {
+            return err;
+        }
     }
 
 

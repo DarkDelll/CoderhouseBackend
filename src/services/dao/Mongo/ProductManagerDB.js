@@ -4,7 +4,6 @@ class ProductManager {
     constructor(){
         console.log('Productos con persistencia de datos en mongoDB')
     }
-    
     async getProducts(){
         let products = await productsModel.find()
         return products.map(product=>product.toObject())
