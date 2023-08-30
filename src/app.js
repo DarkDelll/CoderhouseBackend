@@ -62,8 +62,7 @@ app.use(passport.initialize())
 app.use(passport.session())
 
 
-app.use(addLogger)
-
+app.use(addLogger);
 app.use("/", viewRouter);
 app.use("/api/products", RouterProduct);
 app.use("/api/carts", RouterCart);

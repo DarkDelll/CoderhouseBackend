@@ -34,3 +34,37 @@ premium.addEventListener("submit", (e) => {
       };
     });
 });
+
+const inactivos = document.getElementById("inactivos")
+
+inactivos.addEventListener("submit",e=>{
+  e.preventDefault()
+  const obj = {};
+  fetch(`/api/users/inactives`, {
+    method: "DELETE",
+    body: JSON.stringify(obj),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  }).then((result) => {
+    if (result.status === 200) {
+      Swal.fire(
+        "Usuarios Elimados",
+        "Usuarios eliminados correctamente",
+        "success"
+      ).then((resultado) => {
+        if (resultado.isConfirmed) {
+          window.location.replace("/users");
+        }
+      });
+    }
+    if (result.status === 404) {
+      Swal.fire({
+          icon: 'error',
+          title: 'No hay usuarios',
+          text: 'No hay usuarios inactivos',
+          footer: ''
+      });
+    };
+  });
+})

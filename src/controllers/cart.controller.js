@@ -82,11 +82,7 @@ export async function cartPurchase(req,res){
                 pass: config.mailing.PASSWORD
             }
         });
-        transporter.verify(function (error, success) {
-            if (error) {
-                
-            } 
-        });
+        
 
         const mailOptions = {
             from: "TICKET DE COMPRA " + config.gmailAccount,

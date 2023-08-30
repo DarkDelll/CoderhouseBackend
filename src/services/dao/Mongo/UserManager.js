@@ -38,6 +38,11 @@ class UserManager{
         return updatedUser
         
     }
+    async deleteManyUsers(filter){
+        const inactiveUsers = await userModel.find(filter);
+        const result = await userModel.deleteMany(filter);
+        return inactiveUsers
+    }
 
 
 

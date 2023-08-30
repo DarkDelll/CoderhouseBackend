@@ -23,5 +23,8 @@ export default class usersRepository{
     updateUser = (uid)=>{
         return this.dao.updateUser(uid)
     }
+    deleteManyUsers = (filter)=>{
+        return this.dao.deleteManyUsers(filter)
+    }
     
 }
